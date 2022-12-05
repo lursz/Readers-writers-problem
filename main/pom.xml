@@ -3,13 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>	
-    <groupId>pl.edu.agh.kis.pz1</groupId>
+    <groupId>reader_writer</groupId>
     <artifactId>multi-module</artifactId>
     <version>1.0</version>
   </parent>
 
   <artifactId>main</artifactId>
-  <name>Modul glowny aplikacji - klasa Main z metoda main</name>
+  <name>Main</name>
 
   <!-- Dodane przez pskrzynski -->
   <properties>
@@ -36,7 +36,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>pl.edu.agh.kis.pz1.Main</mainClass>
+              <mainClass>reader_writer.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -72,11 +72,6 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-        <groupId>pl.edu.agh.kis.pz1</groupId>
-        <artifactId>utils</artifactId>
-        <version>${project.version}</version>
-    </dependency>
 
 
   </dependencies>

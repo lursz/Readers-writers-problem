@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>pl.edu.agh.kis.pz1</groupId>
+  <groupId>reader_writer</groupId>
   <artifactId>multi-module</artifactId>
   <version>1.0</version>
 
-  <name>Przyklad - aplikacja wielomodulowa</name>
+  <name>Reader_Writer</name>
   <packaging>pom</packaging>
 
   <!-- Dodane przez pskrzynski -->
@@ -16,7 +16,6 @@
   </properties>
 
   <modules>
-      <module>utils</module>
       <module>main</module>
   </modules>
 
@@ -25,15 +24,11 @@
       <dependencies>
 
           <dependency>
-              <groupId>pl.edu.agh.kis.pz1</groupId>
+              <groupId>reader_writer</groupId>
               <artifactId>main</artifactId>
               <version>${project.version}</version>
           </dependency>
-          <dependency>
-              <groupId>pl.edu.agh.kis.pz1</groupId>
-              <artifactId>utils</artifactId>
-              <version>${project.version}</version>
-          </dependency>
+
 
       </dependencies>
   </dependencyManagement>
