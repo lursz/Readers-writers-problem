@@ -1,5 +1,8 @@
 package reader_writer.people;
 
-public class Writers extends Thread{
+public class Writers extends Human{
+    @Override
+    public void run(){
+    }
 
 }
