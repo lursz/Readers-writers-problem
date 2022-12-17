@@ -1,31 +1,36 @@
 package reader_writer.people;
+
 import reader_writer.Main;
-public class Readers extends Human{
-/* -------------------------------- Atributes ------------------------------- */
+import reader_writer.Resource;
+
+public class Readers extends Human {
+    /* -------------------------------- Atributes ------------------------------- */
     private int id;
 
-    public Readers(int id){
+    private int maxReadingTime = 1000;
+
+
+    public Readers(int id, Resource resource) {
         this.id = id;
+        this.resource = resource;
     }
-/* --------------------------------- Methods -------------------------------- */
-    @Override//use infinite loop to simulate the reader
-    public synchronized void run(){
-        while(true){
-            threadSleep1000();
-            Main.resource.requestRead(this);
-            System.out.println("Reader " + id + " is reading");
-            threadSleep1000();
-            Main.resource.finishRead(this);
-            System.out.println("Reader " + id + " finished reading");
+
+    /* --------------------------------- Methods -------------------------------- */
+    @Override
+    public synchronized void run() {
+        while (true) {
+            int randomWaitingTime = (int) (Math.random() * maxReadingTime);
+            tryCatchThreadSleep(randomWaitingTime);
+            resource.requestRead(this);
+            int randomReadingTime = (int) (Math.random() * maxReadingTime);
+            tryCatchThreadSleep(randomReadingTime);
+            resource.finishRead(this);
+
+
         }
 
 
     }
-
-
-
-
-
 
 
 }

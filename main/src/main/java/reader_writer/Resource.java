@@ -2,64 +2,82 @@ package reader_writer;
 
 import reader_writer.people.Human;
 
-import java.util.LinkedList;
-import java.util.Queue;
+
 import java.util.concurrent.Semaphore;
 
 public class Resource {
-    /* ----------------- Queue -------------------- */
-    private Queue<Human> queue = new LinkedList<>();
+    private int maxAllowedReaders = 5;
+
     /* ---------------- Semaphores ---------------- */
-    private Semaphore mutex = new Semaphore(1);
-    private Semaphore wrt = new Semaphore(1);
-    private int readCount = 0;
+    private Semaphore all_semaphore = new Semaphore(1);
+    private Semaphore library_semaphore = new Semaphore(maxAllowedReaders);
+    private Semaphore write_read_semaphore = new Semaphore(1);
+    private Semaphore read_semaphore = new Semaphore(1);
+
+
     /* --------------- Conditions ----------------- */
-    private int maxReadersAtTheSameTime = 5;
+    private int readCount = 0;
 
-//acquire = wait
-//release = signal
-
-/* --------------------------------- READERS -------------------------------- */
-  public void requestRead(Human human) {
-    try {
-      mutex.acquire();
-      readCount++;
-      if (readCount == 1) {
-        wrt.acquire();
-      }
-      mutex.release();
-      queue.add(human);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
+    public int getReadCount() {
+        return readCount;
     }
-  }
+
+    public void setReadCount(int readCount) {
+        this.readCount = readCount;
+    }
+
+    //acquire = wait
+    //release = signal
+
+
+
+    /* --------------------------------- READERS -------------------------------- */
+    public void requestRead(Human human) {
+        all_semaphore.acquireUninterruptibly();
+        read_semaphore.acquireUninterruptibly();
+        readCount++;
+        if (readCount == 1) {
+            write_read_semaphore.acquireUninterruptibly();
+        }
+        //let next person in
+        all_semaphore.release();
+        read_semaphore.release();
+        //check if there is room in library
+        library_semaphore.acquireUninterruptibly();
+
+        System.out.println("Reader " + human.getId() + " is reading");
+    }
 
     public void finishRead(Human human) {
-        try {
-        mutex.acquire();
+        library_semaphore.release();
+        System.out.println("Reader " + human.getId() + " finished reading");
+        //reader stopped reading but waits for everyone to leave with them
+        read_semaphore.acquireUninterruptibly();
+        //all leave, so decrement readCount
         readCount--;
+        //if you were the last one to leave, let the writer in
         if (readCount == 0) {
-            wrt.release();
+            write_read_semaphore.release();
         }
-        mutex.release();
-        queue.remove(human);
-        } catch (InterruptedException e) {
-        e.printStackTrace();
-        }
+        //always let next reader in
+        read_semaphore.release();
+
+
     }
-/* --------------------------------- WRITERS -------------------------------- */
+
+
+
+    /* --------------------------------- WRITERS -------------------------------- */
     public void requestWrite(Human human) {
-        try {
-        wrt.acquire();
-        queue.add(human);
-        } catch (InterruptedException e) {
-        e.printStackTrace();
-        }
+        all_semaphore.acquireUninterruptibly();
+        write_read_semaphore.acquireUninterruptibly();
+        System.out.println("Writer " + human.getId() + " is writing");
+
     }
 
     public void finishWrite(Human human) {
-        wrt.release();
-        queue.remove(human);
+        all_semaphore.release();
+        write_read_semaphore.release();
+        System.out.println("Writer " + human.getId() + "finished writing");
     }
-
 }

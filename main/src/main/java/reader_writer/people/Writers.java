@@ -1,27 +1,30 @@
 package reader_writer.people;
 
 import reader_writer.Main;
+import reader_writer.Resource;
 
-public class Writers extends Human{
-/* -------------------------------- Atributes ------------------------------- */
+public class Writers extends Human {
+    /* -------------------------------- Atributes ------------------------------- */
 
     private int id;
-    public Writers(int id){
-        this.id = id;
-    }
+    private int maxWritingTime = 1000;
 
-/* --------------------------------- Methods -------------------------------- */
+    public Writers(int id, Resource resource) {
+        this.id = id;
+        this.resource = resource;
+    }
+    /* --------------------------------- Methods -------------------------------- */
 
     @Override
-    public synchronized void run(){
-        while(true){
-            threadSleep1000();
-            Main.resource.requestWrite(this);
-            System.out.println("Writer " + id + " is writing");
-            threadSleep1000();
-            Main.resource.finishWrite(this);
-            System.out.println("Writer " + id + " finished writing");
+    public synchronized void run() {
+        while (true) {
+            int randomWritingTime = (int) (Math.random() * maxWritingTime);
+            int randomWaitingTime = (int) (Math.random() * maxWritingTime);
+            tryCatchThreadSleep(randomWaitingTime);
+            resource.requestWrite(this);
+            tryCatchThreadSleep(randomWritingTime);
+            resource.finishWrite(this);
         }
-    }
 
+    }
 }

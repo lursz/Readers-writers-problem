@@ -1,12 +1,16 @@
 package reader_writer.people;
 
-public class Human extends Thread{
-    protected int id;
+import reader_writer.Resource;
 
-    protected void threadSleep1000(){
-        try{
-            Thread.sleep(1000);
-        }catch(InterruptedException e){
+public class Human extends Thread {
+
+    protected Resource resource;
+
+
+    public void tryCatchThreadSleep(int value) {
+        try {
+            Thread.sleep(value);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
