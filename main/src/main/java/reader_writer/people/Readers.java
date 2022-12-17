@@ -2,21 +2,24 @@ package reader_writer.people;
 import reader_writer.Main;
 public class Readers extends Human{
 
+    private int id;
+
     public Readers(int id){
         this.id = id;
     }
 
-    @Override
-    public void run(){
-        try {
-            Main.resource.startRead(this);
-            System.out.println("Czytelnik " + id + " rozpoczyna czytanie");
-            Thread.sleep(1000);
-            System.out.println("Czytelnik " + id + " kończy czytanie");
-            Main.resource.endRead();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    @Override//use infinite loop to simulate the reader
+    public synchronized void run(){
+        while(true){
+            threadSleep1000();
+            Main.resource.requestRead(this);
+            System.out.println("Reader " + id + " is reading");
+            threadSleep1000();
+            Main.resource.finishRead(this);
+            System.out.println("Reader " + id + " finished reading");
         }
+
+
     }
 
 

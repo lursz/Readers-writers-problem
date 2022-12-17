@@ -8,42 +8,54 @@ import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
 public class Resource {
-    private final Semaphore mutex = new Semaphore(1);
-    private final Semaphore db = new Semaphore(1);
     private Queue<Human> queue = new LinkedList<>();
+    private Semaphore mutex = new Semaphore(1);
+    private Semaphore wrt = new Semaphore(1);
     private int readCount = 0;
+    private int maxReadersAtTheSameTime = 5;
+//acquire = wait
+//release = signal
 
-    public void startRead(Human human) throws InterruptedException {
-        mutex.acquire();
-        queue.add(human);
-        if (queue.peek() == human) {
-            db.acquire();
-        }
-        mutex.release();
-        readCount++;
+  public void requestRead(Human human) {
+    try {
+      mutex.acquire();
+      readCount++;
+      if (readCount == 1) {
+        wrt.acquire();
+      }
+      mutex.release();
+      queue.add(human);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
+  }
 
-    public void endRead() throws InterruptedException {
+    public void finishRead(Human human) {
+        try {
         mutex.acquire();
         readCount--;
         if (readCount == 0) {
-            db.release();
+            wrt.release();
         }
         mutex.release();
+        queue.remove(human);
+        } catch (InterruptedException e) {
+        e.printStackTrace();
+        }
     }
 
-    public void startWrite(Human human) throws InterruptedException {
-        mutex.acquire();
+    public void requestWrite(Human human) {
+        try {
+        wrt.acquire();
         queue.add(human);
-        if (queue.peek() == human) {
-            db.acquire();
+        } catch (InterruptedException e) {
+        e.printStackTrace();
         }
-        mutex.release();
     }
 
-    public void endWrite() throws InterruptedException {
-        mutex.acquire();
-        db.release();
-        mutex.release();
+    public void finishWrite(Human human) {
+        wrt.release();
+        queue.remove(human);
     }
+
 }
