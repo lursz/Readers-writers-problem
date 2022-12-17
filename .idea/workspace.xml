@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a1ede0e-3cac-4f97-9bd2-12c47d4d2635" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/reader_writer/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/reader_writer/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/reader_writer/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/reader_writer/Resource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/reader_writer/people/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/reader_writer/people/Human.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/reader_writer/people/Readers.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/reader_writer/people/Readers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/reader_writer/people/Writers.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/reader_writer/people/Writers.java" afterDir="false" />
-    </list>
+    <list default="true" id="7a1ede0e-3cac-4f97-9bd2-12c47d4d2635" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

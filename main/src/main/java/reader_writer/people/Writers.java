@@ -3,11 +3,14 @@ package reader_writer.people;
 import reader_writer.Main;
 
 public class Writers extends Human{
+/* -------------------------------- Atributes ------------------------------- */
+
     private int id;
     public Writers(int id){
         this.id = id;
     }
 
+/* --------------------------------- Methods -------------------------------- */
 
     @Override
     public synchronized void run(){
