@@ -18,13 +18,6 @@ public class Resource {
     /* --------------- Conditions ----------------- */
     private int readCount = 0;
 
-    public int getReadCount() {
-        return readCount;
-    }
-
-    public void setReadCount(int readCount) {
-        this.readCount = readCount;
-    }
 
     //acquire = wait
     //release = signal
@@ -45,12 +38,12 @@ public class Resource {
         //check if there is room in library
         library_semaphore.acquireUninterruptibly();
 
-        System.out.println("Reader " + human.getId() + " is reading");
+        System.out.println("Reader " + human.getIdentifier() + " is reading");
     }
 
     public void finishRead(Human human) {
         library_semaphore.release();
-        System.out.println("Reader " + human.getId() + " finished reading");
+        System.out.println("Reader " + human.getIdentifier() + " finished reading");
         //reader stopped reading but waits for everyone to leave with them
         read_semaphore.acquireUninterruptibly();
         //all leave, so decrement readCount
@@ -71,13 +64,13 @@ public class Resource {
     public void requestWrite(Human human) {
         all_semaphore.acquireUninterruptibly();
         write_read_semaphore.acquireUninterruptibly();
-        System.out.println("Writer " + human.getId() + " is writing");
+        System.out.println("Writer " + human.getIdentifier() + " is writing");
 
     }
 
     public void finishWrite(Human human) {
         all_semaphore.release();
         write_read_semaphore.release();
-        System.out.println("Writer " + human.getId() + "finished writing");
+        System.out.println("Writer " + human.getIdentifier() + " finished writing");
     }
 }

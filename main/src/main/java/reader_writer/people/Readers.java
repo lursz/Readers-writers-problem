@@ -1,17 +1,18 @@
 package reader_writer.people;
 
-import reader_writer.Main;
 import reader_writer.Resource;
 
 public class Readers extends Human {
+
+
     /* -------------------------------- Atributes ------------------------------- */
-    private int id;
+
 
     private int maxReadingTime = 1000;
 
 
-    public Readers(int id, Resource resource) {
-        this.id = id;
+    public Readers(int identifier, Resource resource) {
+        this.identifier = identifier;
         this.resource = resource;
     }
 

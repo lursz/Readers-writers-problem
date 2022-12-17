@@ -6,11 +6,10 @@ import reader_writer.Resource;
 public class Writers extends Human {
     /* -------------------------------- Atributes ------------------------------- */
 
-    private int id;
     private int maxWritingTime = 1000;
 
     public Writers(int id, Resource resource) {
-        this.id = id;
+        this.identifier = id;
         this.resource = resource;
     }
     /* --------------------------------- Methods -------------------------------- */
