@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Resource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Main</a> &gt; <a href="index.source.html" class="el_package">reader_writer</a> &gt; <span class="el_source">Resource.java</span></div><h1>Resource.java</h1><pre class="source lang-java linenums">package reader_writer;
+import reader_writer.people.Human;
+import java.util.concurrent.Semaphore;
+
+<span class="fc" id="L5">public class Resource {</span>
+<span class="fc" id="L6">    private int maxAllowedReaders = 5;</span>
+
+    /* ---------------- Semaphores ---------------- */
+<span class="fc" id="L9">    private Semaphore all_semaphore = new Semaphore(1, true);</span>
+<span class="fc" id="L10">    private Semaphore library_semaphore = new Semaphore(maxAllowedReaders, true);</span>
+<span class="fc" id="L11">    private Semaphore write_read_semaphore = new Semaphore(1, true);</span>
+<span class="fc" id="L12">    private Semaphore read_semaphore = new Semaphore(1, true);</span>
+
+
+    /* --------------- Conditions ----------------- */
+<span class="fc" id="L16">    private int readCount = 0;</span>
+
+
+    /* --------------------------------- READERS -------------------------------- */
+
+    /**
+     * Request to read the resource
+     * @param human
+     */
+    public void requestRead(Human human) {
+<span class="nc" id="L26">        all_semaphore.acquireUninterruptibly();</span>
+<span class="nc" id="L27">        read_semaphore.acquireUninterruptibly();</span>
+<span class="nc" id="L28">        readCount++;</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (readCount == 1) {</span>
+<span class="nc" id="L30">            write_read_semaphore.acquireUninterruptibly();</span>
+        }
+        //let next person in
+<span class="nc" id="L33">        all_semaphore.release();</span>
+<span class="nc" id="L34">        read_semaphore.release();</span>
+        //check if there is room in library
+<span class="nc" id="L36">        library_semaphore.acquireUninterruptibly();</span>
+
+<span class="nc" id="L38">        System.out.println(&quot;Reader &quot; + human.getIdentifier() + &quot; is reading&quot;);</span>
+<span class="nc" id="L39">    }</span>
+
+    public void finishRead(Human human) {
+<span class="nc" id="L42">        library_semaphore.release();</span>
+<span class="nc" id="L43">        System.out.println(&quot;Reader &quot; + human.getIdentifier() + &quot; finished reading&quot;);</span>
+        //reader stopped reading but waits for everyone to leave with them
+<span class="nc" id="L45">        read_semaphore.acquireUninterruptibly();</span>
+        //all leave, so decrement readCount
+<span class="nc" id="L47">        readCount--;</span>
+        //if you were the last one to leave, let the writer in
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (readCount == 0) {</span>
+<span class="nc" id="L50">            write_read_semaphore.release();</span>
+        }
+        //always let next reader in
+<span class="nc" id="L53">        read_semaphore.release();</span>
+
+
+<span class="nc" id="L56">    }</span>
+
+
+
+    /* --------------------------------- WRITERS -------------------------------- */
+    public void requestWrite(Human human) {
+<span class="nc" id="L62">        all_semaphore.acquireUninterruptibly();</span>
+<span class="nc" id="L63">        write_read_semaphore.acquireUninterruptibly();</span>
+<span class="nc" id="L64">        System.out.println(&quot;Writer &quot; + human.getIdentifier() + &quot; is writing&quot;);</span>
+
+<span class="nc" id="L66">    }</span>
+
+    public void finishWrite(Human human) {
+<span class="nc" id="L69">        all_semaphore.release();</span>
+<span class="nc" id="L70">        write_read_semaphore.release();</span>
+<span class="nc" id="L71">        System.out.println(&quot;Writer &quot; + human.getIdentifier() + &quot; finished writing&quot;);</span>
+<span class="nc" id="L72">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

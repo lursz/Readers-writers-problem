@@ -1,13 +1,14 @@
 package reader_writer.people;
-
 import reader_writer.Resource;
 
+/**
+ * Class that represents a reader.
+ * Reader can read the resource alone or with other readers.
+ */
 public class Readers extends Human {
 
 
-    /* -------------------------------- Atributes ------------------------------- */
-
-
+    /* -------------------------------- Attributes ------------------------------- */
     private int maxReadingTime = 1000;
 
 
@@ -17,13 +18,18 @@ public class Readers extends Human {
     }
 
     /* --------------------------------- Methods -------------------------------- */
+
+    /**
+     * Overridden run method, that will be executed when the thread is started.
+     * It will request to read the resource, proceed to read it and then finish reading it.
+     */
     @Override
     public synchronized void run() {
         while (true) {
             int randomWaitingTime = (int) (Math.random() * maxReadingTime);
+            int randomReadingTime = (int) (Math.random() * maxReadingTime);
             tryCatchThreadSleep(randomWaitingTime);
             resource.requestRead(this);
-            int randomReadingTime = (int) (Math.random() * maxReadingTime);
             tryCatchThreadSleep(randomReadingTime);
             resource.finishRead(this);
 

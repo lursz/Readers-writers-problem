@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Readers.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Main</a> &gt; <a href="index.source.html" class="el_package">reader_writer.people</a> &gt; <span class="el_source">Readers.java</span></div><h1>Readers.java</h1><pre class="source lang-java linenums">package reader_writer.people;
+import reader_writer.Resource;
+
+public class Readers extends Human {
+
+
+    /* -------------------------------- Atributes ------------------------------- */
+<span class="nc" id="L8">    private int maxReadingTime = 1000;</span>
+
+
+<span class="nc" id="L11">    public Readers(int identifier, Resource resource) {</span>
+<span class="nc" id="L12">        this.identifier = identifier;</span>
+<span class="nc" id="L13">        this.resource = resource;</span>
+<span class="nc" id="L14">    }</span>
+
+    /* --------------------------------- Methods -------------------------------- */
+    @Override
+    public synchronized void run() {
+        while (true) {
+<span class="nc" id="L20">            int randomWaitingTime = (int) (Math.random() * maxReadingTime);</span>
+<span class="nc" id="L21">            tryCatchThreadSleep(randomWaitingTime);</span>
+<span class="nc" id="L22">            resource.requestRead(this);</span>
+<span class="nc" id="L23">            int randomReadingTime = (int) (Math.random() * maxReadingTime);</span>
+<span class="nc" id="L24">            tryCatchThreadSleep(randomReadingTime);</span>
+<span class="nc" id="L25">            resource.finishRead(this);</span>
+
+
+<span class="nc" id="L28">        }</span>
+
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

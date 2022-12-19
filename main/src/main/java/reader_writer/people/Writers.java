@@ -1,8 +1,10 @@
 package reader_writer.people;
-
-import reader_writer.Main;
 import reader_writer.Resource;
 
+/**
+ * Class that represents a writer.
+ * Writer can write to the resource.
+ */
 public class Writers extends Human {
     /* -------------------------------- Atributes ------------------------------- */
 
@@ -13,7 +15,10 @@ public class Writers extends Human {
         this.resource = resource;
     }
     /* --------------------------------- Methods -------------------------------- */
-
+    /**
+     * Overridden run method, that will be executed when the thread is started.
+     * It will request to write the resource, proceed to write it and then finish writing it.
+     */
     @Override
     public synchronized void run() {
         while (true) {
@@ -24,6 +29,5 @@ public class Writers extends Human {
             tryCatchThreadSleep(randomWritingTime);
             resource.finishWrite(this);
         }
-
     }
 }
