@@ -1,4 +1,8 @@
 # Readers-Writers problem
+### Run:
+```java -jar main-1.0-jar-with-dependencies.jar liczba_czytelnikow liczba_pisarzy```  
+```java -jar main-1.0-jar-with-dependencies.jar 10 3```  
+```java -jar main-1.0-jar-with-dependencies.jar 10 10```
 
 
 ## Problem czytelników i pisarzy 
@@ -15,8 +19,14 @@ Zasady:
 
 
 Testy: 10R, 3W oraz 10R, 10W
+
+
+__________________________
+# My solution 
+
+![image info](JavaDocs/solution.png)
 ___________________________
-# Solution
+# Comprehensive explanation
 
 The Reader-Writer's problem deals with synchronizing multiple processes which are categorized into 2 types namely:
 - **Readers -** They read data from a shared memory location

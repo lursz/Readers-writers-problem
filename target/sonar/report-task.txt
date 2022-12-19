@@ -1,6 +1,0 @@
-projectKey=Readers-Writers
-serverUrl=http://localhost:9000
-serverVersion=9.7.1.62043
-dashboardUrl=http://localhost:9000/dashboard?id=Readers-Writers
-ceTaskId=AYUlxZSbRACUs4WdePro
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYUlxZSbRACUs4WdePro

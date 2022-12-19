@@ -9,6 +9,7 @@ public class Writers extends Human {
     /* -------------------------------- Atributes ------------------------------- */
 
     private int maxWritingTime = 3000;
+    private int minWritingTime = 1000;
 
     public Writers(int id, Resource resource) {
         this.identifier = id;
@@ -22,7 +23,7 @@ public class Writers extends Human {
     @Override
     public synchronized void run() {
         while (true) {
-            int randomWritingTime = (int) (Math.random() * maxWritingTime);
+            int randomWritingTime = (int) (Math.random() * (maxWritingTime - minWritingTime) + minWritingTime);
             int randomWaitingTime = (int) (Math.random() * maxWritingTime);
             tryCatchThreadSleep(randomWaitingTime);
             resource.requestWrite(this);
