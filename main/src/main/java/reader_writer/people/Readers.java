@@ -9,7 +9,7 @@ public class Readers extends Human {
 
 
     /* -------------------------------- Attributes ------------------------------- */
-    private int maxReadingTime = 1000;
+    private int maxReadingTime = 3000;
 
 
     public Readers(int identifier, Resource resource) {

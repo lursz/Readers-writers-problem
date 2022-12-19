@@ -8,7 +8,7 @@ import reader_writer.Resource;
 public class Writers extends Human {
     /* -------------------------------- Atributes ------------------------------- */
 
-    private int maxWritingTime = 1000;
+    private int maxWritingTime = 3000;
 
     public Writers(int id, Resource resource) {
         this.identifier = id;

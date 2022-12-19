@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Writers.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Main</a> &gt; <a href="index.source.html" class="el_package">reader_writer.people</a> &gt; <span class="el_source">Writers.java</span></div><h1>Writers.java</h1><pre class="source lang-java linenums">package reader_writer.people;
 import reader_writer.Resource;
 
+/**
+ * Class that represents a writer.
+ * Writer can write to the resource.
+ */
 public class Writers extends Human {
     /* -------------------------------- Atributes ------------------------------- */
 
-<span class="nc" id="L7">    private int maxWritingTime = 1000;</span>
+<span class="nc" id="L11">    private int maxWritingTime = 3000;</span>
 
-<span class="nc" id="L9">    public Writers(int id, Resource resource) {</span>
-<span class="nc" id="L10">        this.identifier = id;</span>
-<span class="nc" id="L11">        this.resource = resource;</span>
-<span class="nc" id="L12">    }</span>
+<span class="nc" id="L13">    public Writers(int id, Resource resource) {</span>
+<span class="nc" id="L14">        this.identifier = id;</span>
+<span class="nc" id="L15">        this.resource = resource;</span>
+<span class="nc" id="L16">    }</span>
     /* --------------------------------- Methods -------------------------------- */
-
+    /**
+     * Overridden run method, that will be executed when the thread is started.
+     * It will request to write the resource, proceed to write it and then finish writing it.
+     */
     @Override
     public synchronized void run() {
         while (true) {
-<span class="nc" id="L18">            int randomWritingTime = (int) (Math.random() * maxWritingTime);</span>
-<span class="nc" id="L19">            int randomWaitingTime = (int) (Math.random() * maxWritingTime);</span>
-<span class="nc" id="L20">            tryCatchThreadSleep(randomWaitingTime);</span>
-<span class="nc" id="L21">            resource.requestWrite(this);</span>
-<span class="nc" id="L22">            tryCatchThreadSleep(randomWritingTime);</span>
-<span class="nc" id="L23">            resource.finishWrite(this);</span>
-<span class="nc" id="L24">        }</span>
+<span class="nc" id="L25">            int randomWritingTime = (int) (Math.random() * maxWritingTime);</span>
+<span class="nc" id="L26">            int randomWaitingTime = (int) (Math.random() * maxWritingTime);</span>
+<span class="nc" id="L27">            tryCatchThreadSleep(randomWaitingTime);</span>
+<span class="nc" id="L28">            resource.requestWrite(this);</span>
+<span class="nc" id="L29">            tryCatchThreadSleep(randomWritingTime);</span>
+<span class="nc" id="L30">            resource.finishWrite(this);</span>
+<span class="nc" id="L31">        }</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
