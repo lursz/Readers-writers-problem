@@ -1,31 +1,23 @@
 # Readers-Writers problem
 ### Run:
-```java -jar main-1.0-jar-with-dependencies.jar liczba_czytelnikow liczba_pisarzy```  
+```java -jar main-1.0-jar-with-dependencies.jar number_of_readers number_of_writers```  
 ```java -jar main-1.0-jar-with-dependencies.jar 10 3```  
 ```java -jar main-1.0-jar-with-dependencies.jar 10 10```
 
 
-## Problem czytelników i pisarzy 
-Klasyczny informatyczny problem synchronizacji dostępu do jednego zasobu (pliku, rekordu bazy danych) dwóch rodzajów procesów: dokonujących i niedokonujących w nim zmian.
+## Readers-writers problem
+The readers-writers problem relates to an object such as a file that is shared between multiple processes. Some of these processes are readers i.e. they only want to read the data from the object and some of the processes are writers i.e. they want to write into the object.
 
-### W problemie czytelników i pisarzy zasób jest dzielony pomiędzy dwie grupy procesów:  
-czytelnicy – wszystkie procesy niedokonujące zmian w zasobie  
-pisarze – pozostałe procesy.
+The readers-writers problem is used to manage synchronization so that there are no problems with the object data. For example - If two readers access the object at the same time there is no problem. However if two writers or a reader and writer access the object at the same time, there may be problems.
 
-Zasady:
-- Jednoczesny dostęp do zasobu może uzyskać dowolna liczba czytelników. 
-- Pisarz może otrzymać tylko dostęp wyłączny. 
-- Równocześnie z pisarzem dostępu do zasobu nie może otrzymać ani inny pisarz, ani czytelnik, gdyż mogłoby to spowodować błędy.
-
-
-Testy: 10R, 3W oraz 10R, 10W
+To solve this situation, a writer should get exclusive access to an object i.e. when a writer is accessing the object, no reader or writer may access it. However, multiple readers can access the object at the same time.
 
 
 __________________________
 # My solution 
 
-![image info](JavaDocs/solution.png)
-___________________________
+![solution](https://user-images.githubusercontent.com/93160829/217715381-65081074-46a9-4817-a993-bd3c98fb935b.png)
+________________________
 # Comprehensive explanation
 
 The Reader-Writer's problem deals with synchronizing multiple processes which are categorized into 2 types namely:
